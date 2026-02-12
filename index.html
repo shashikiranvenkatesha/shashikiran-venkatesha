@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Shashikiran Venkatesha - Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+            scroll-behavior: smooth;
+        }
+
+        /* CUSTOM SCROLLBAR */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #003366; border-radius: 5px; border: 2px solid #f1f1f1; }
+        ::-webkit-scrollbar-thumb:hover { background: #002b5c; }
+        * { scrollbar-width: thin; scrollbar-color: #003366 #f1f1f1; }
+
+        .font-serif { font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif; }
+
+        /* Roadmap vertical line */
+        .roadmap-line::before {
+            content: '';
+            position: absolute;
+            left: 24px;
+            top: 48px;
+            bottom: 0;
+            width: 2px;
+            background-color: #dbeafe;
+        }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.5s ease-in-out; }
+        .sub-tab-content { display: none; }
+        .sub-tab-content.active { display: block; animation: slideInFromRight 0.4s ease-out; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideInFromRight { from { transform: translateX(1rem); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+        .nav-btn.active {
+            border-color: #003366;
+            color: #003366;
+            background-color: white;
+        }
+
+        /* Smooth Nav Transition Styles */
+        #sticky-nav {
+            transition: all 0.3s ease-in-out;
+        }
+
+        #sticky-nav.is-sticky {
+            background-color: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+
+        .sub-nav-btn.active {
+            background-color: #eff6ff;
+            color: #003366;
+            font-weight: 700;
+            border-right: 4px solid #003366;
+        }
+
+        .profile-img-container {
+            background-color: #ffffff;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+    </style>
+</head>
+<body class="text-gray-800 selection:bg-blue-100 overflow-x-hidden">
+
+    <!-- Hero Banner Section - Restored to Blue Gradient -->
+    <section class="relative w-full bg-gradient-to-r from-[#002b5c] via-[#004080] to-[#005bb7] text-white overflow-hidden">
+        <div class="absolute inset-0 opacity-10 pointer-events-none">
+            <div class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_20%_50%,rgba(255,255,255,0.1)_0%,transparent_50%)]"></div>
+        </div>
+
+        <div class="max-w-6xl mx-auto px-6 py-12 md:py-20 flex flex-col md:flex-row items-center justify-between relative z-10">
+            <div class="flex-1 text-center md:text-left space-y-4">
+                <!-- Single line name with nowrap on larger screens -->
+                <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight uppercase border-b border-white/20 pb-4 inline-block md:block font-serif whitespace-nowrap">
+                    DR. SHASHIKIRAN VENKATESHA
+                </h1>
+                <div class="space-y-2">
+                    <p class="text-xl md:text-2xl font-medium text-blue-100 italic">Associate Professor</p>
+                    <p class="text-sm md:text-lg opacity-90 font-light">Department of Computer Science and Engineering</p>
+                    <div class="h-[1px] w-full bg-white/30 my-4 max-w-md mx-auto md:mx-0"></div>
+                    <p class="text-sm md:text-md opacity-80 tracking-wide leading-relaxed">
+                        Dayananda Sagar University, Bangalore - 562112, Karnataka, INDIA
+                    </p>
+                </div>
+
+                <div class="pt-6">
+                    <button onclick="handleTabChange('biodata')" class="bg-[#78b13f] hover:bg-[#669a35] text-white px-8 py-3 rounded text-sm font-bold uppercase tracking-wider shadow-lg transition transform hover:-translate-y-1">
+                        See Biodata
+                    </button>
+                </div>
+            </div>
+
+            <div class="mt-10 md:mt-0 flex flex-col items-center md:items-end relative">
+                <div class="w-64 h-64 md:w-80 md:h-80 border-[8px] border-white/10 rounded-full overflow-hidden profile-img-container flex items-center justify-center relative">
+                    <img id="profile-pic" src="shashi.jpeg" alt="Dr. Shashikiran Venkatesha" class="w-full h-full object-cover block relative z-10 opacity-100" loading="eager" onerror="this.style.display='none'">
+                    <i data-lucide="user" class="w-24 h-24 text-blue-100 opacity-40 absolute inset-0 m-auto z-0"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Navigation Bar -->
+    <nav id="sticky-nav" class="sticky top-0 z-50 w-full border-b bg-[#e9ecef]">
+        <div class="max-w-6xl mx-auto px-4">
+            <ul class="flex flex-wrap items-center justify-center">
+                <li><button onclick="handleTabChange('home')" class="nav-btn px-4 py-4 text-[13px] font-bold uppercase tracking-wider transition-all border-b-[3px] border-transparent text-gray-600 hover:text-[#003366] hover:bg-white/50 active" data-tab-id="home">Home</button></li>
+                <li><button onclick="handleTabChange('biodata')" class="nav-btn px-4 py-4 text-[13px] font-bold uppercase tracking-wider transition-all border-b-[3px] border-transparent text-gray-600 hover:text-[#003366] hover:bg-white/50" data-tab-id="biodata">Biodata</button></li>
+                <li><button onclick="handleTabChange('academic')" class="nav-btn px-4 py-4 text-[13px] font-bold uppercase tracking-wider transition-all border-b-[3px] border-transparent text-gray-600 hover:text-[#003366] hover:bg-white/50" data-tab-id="academic">Qualifications</button></li>
+                <li><button onclick="handleTabChange('experience')" class="nav-btn px-4 py-4 text-[13px] font-bold uppercase tracking-wider transition-all border-b-[3px] border-transparent text-gray-600 hover:text-[#003366] hover:bg-white/50" data-tab-id="experience">Experience</button></li>
+                <li><button onclick="handleTabChange('publications')" class="nav-btn px-4 py-4 text-[13px] font-bold uppercase tracking-wider transition-all border-b-[3px] border-transparent text-gray-600 hover:text-[#003366] hover:bg-white/50" data-tab-id="publications">Publications</button></li>
+                <li><button onclick="handleTabChange('awards')" class="nav-btn px-4 py-4 text-[13px] font-bold uppercase tracking-wider transition-all border-b-[3px] border-transparent text-gray-600 hover:text-[#003366] hover:bg-white/50" data-tab-id="awards">Awards</button></li>
+                <li><button onclick="handleTabChange('contact')" class="nav-btn px-4 py-4 text-[13px] font-bold uppercase tracking-wider transition-all border-b-[3px] border-transparent text-gray-600 hover:text-[#003366] hover:bg-white/50" data-tab-id="contact">Contact</button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main id="main-content" class="max-w-6xl mx-auto px-6 py-12 min-h-[40vh]">
+        
+        <!-- HOME TAB -->
+        <div id="tab-home" class="tab-content active">
+            <div class="max-w-4xl mx-auto space-y-8 text-justify">
+                <h2 class="text-2xl font-bold text-[#003366] border-b-2 border-[#003366] inline-block mb-6 pb-1 font-serif">Brief Profile</h2>
+                <div class="text-lg leading-relaxed text-gray-700 font-serif space-y-6">
+                    <p>Dr. Shashikiran Venkatesha is an Associate Professor in the Department of Computer Science and Engineering at Dayananda Sagar University.</p>
+                    <p>Shashikiran V has completed his bachelor's in engineering specializing in computer Science and Engineering securing First class with distinction from University of Madras. He had profound interest in Electric circuit theory, Electromagnetic Theory, and Signal processing while pursuing his bachelors. In due course of time, teaching subjects like Digital circuits, Computer Architecture, Operating System, and Database Systems provided holistic understanding of software-hardware co-design. He has passed out Master’s degree in computer Science and Engineering securing First class with distinction from Anna University. Master’s degree provided him a solid foundation in Logic, Probability theory, Operation research and their applications in various research domains. He worked for a brief period as Teaching assistant and simultaneous pursued research, and Fault tolerance, Reliability engineering, and Digital Design for Testability were part of his PhD Course work. He has completed PhD from College of Engineering, Guindy Anna University.</p>
+                    <p>His research interest is diverse covering subjects such as Computer Architecture, Microcontrollers, Digital logic and System design, Database systems, Data science, Machine learning and Optimization techniques. He has published many papers in international conferences and journals. He is also interested in exploring different optimization problems such as (a) Linear programming problem (b) Quadratic programming (c) Geometric programming (d) Stochastic programming and (d) Heuristic algorithmic approaches and their suitability for multi-core system to optimize power, area, and performance. To summarize, He is interested in doing research in providing fault tolerance solutions for processor cores, memory (SRAM and DRAM), register file and interconnection logic. He would like to explore more on Optimization theory and Bio-inspired algorithms to gain expertise in the same.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- BIODATA TAB -->
+        <div id="tab-biodata" class="tab-content">
+            <div class="flex flex-col lg:flex-row gap-8">
+                <aside class="lg:w-72 shrink-0">
+                    <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden sticky top-24">
+                        <div class="p-4 bg-gray-50 border-b border-gray-200">
+                            <h3 class="text-xs font-bold text-[#003366] uppercase tracking-widest flex items-center gap-2"><i data-lucide="file-text" class="w-3.5 h-3.5"></i> Biodata Index</h3>
+                        </div>
+                        <ul id="sub-tabs" class="py-2">
+                            <li><button onclick="handleSubTabChange('general')" class="sub-nav-btn w-full text-left px-6 py-3 text-sm transition-colors flex items-center justify-between group active" data-sub-id="general">General Information <i data-lucide="chevron-right" class="w-3.5 h-3.5 opacity-100"></i></button></li>
+                            <li><button onclick="handleSubTabChange('technical')" class="sub-nav-btn w-full text-left px-6 py-3 text-sm transition-colors flex items-center justify-between group" data-sub-id="technical">Technical Proficiency <i data-lucide="chevron-right" class="w-3.5 h-3.5 opacity-0 group-hover:opacity-100"></i></button></li>
+                            <li><button onclick="handleSubTabChange('teaching')" class="sub-nav-btn w-full text-left px-6 py-3 text-sm transition-colors flex items-center justify-between group" data-sub-id="teaching">Teaching Interest <i data-lucide="chevron-right" class="w-3.5 h-3.5 opacity-0 group-hover:opacity-100"></i></button></li>
+                            <li><button onclick="handleSubTabChange('research-interest')" class="sub-nav-btn w-full text-left px-6 py-3 text-sm transition-colors flex items-center justify-between group" data-sub-id="research-interest">Research Interest <i data-lucide="chevron-right" class="w-3.5 h-3.5 opacity-0 group-hover:opacity-100"></i></button></li>
+                            <li><button onclick="handleSubTabChange('publications-link')" class="sub-nav-btn w-full text-left px-6 py-3 text-sm transition-colors flex items-center justify-between group" data-sub-id="publications-link">Research Publications <i data-lucide="chevron-right" class="w-3.5 h-3.5 opacity-0 group-hover:opacity-100"></i></button></li>
+                        </ul>
+                    </div>
+                </aside>
+
+                <div class="flex-1 bg-white p-8 lg:p-12 rounded-xl border border-gray-200 shadow-sm min-h-[600px]">
+                    <div id="sub-general" class="sub-tab-content active">
+                        <h3 class="text-2xl font-bold text-[#003366] mb-8 border-b pb-2 font-serif">General Information</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-12">
+                            <div class="border-b border-gray-50 pb-2"><p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Name</p><p class="text-lg font-medium text-gray-800">SHASHIKIRAN V</p></div>
+                            <div class="border-b border-gray-50 pb-2"><p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Gender</p><p class="text-lg font-medium text-gray-800">Male</p></div>
+                            <div class="border-b border-gray-50 pb-2"><p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Date of Birth</p><p class="text-lg font-medium text-gray-800">17-11-1977</p></div>
+                            <div class="border-b border-gray-50 pb-2"><p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Marital Status</p><p class="text-lg font-medium text-gray-800">Married</p></div>
+                            <div class="border-b border-gray-50 pb-2"><p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Nationality</p><p class="text-lg font-medium text-gray-800">Indian</p></div>
+                            <div class="border-b border-gray-50 pb-2"><p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Mother Tongue</p><p class="text-lg font-medium text-gray-800">Kannada</p></div>
+                            <div class="border-b border-gray-50 pb-2"><p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Father's Name</p><p class="text-lg font-medium text-gray-800">H.H. VENKATESHA</p></div>
+                            <div class="border-b border-gray-50 pb-2"><p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Linguistic Ability</p><p class="text-lg font-medium text-gray-800">English, Hindi, Tamil</p></div>
+                        </div>
+                    </div>
+                    <div id="sub-technical" class="sub-tab-content">
+                        <h3 class="text-2xl font-bold text-[#003366] mb-8 border-b pb-2 font-serif">Technical Proficiency</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="space-y-2"><div class="flex items-center gap-2 text-[#003366] font-bold text-sm uppercase tracking-wide mb-2"><i data-lucide="terminal" class="w-4 h-4"></i> Programming & Scripting</div><p class="text-sm text-gray-600 leading-relaxed text-justify">C, C++, VC++ (MFC & 32-bit SDK), Java (Servlets, JDBC, Swing), Perl, Python, HTML/DHTML (CSS), PHP, JavaScript, XML, Linux Shell.</p></div>
+                            <div class="space-y-2"><div class="flex items-center gap-2 text-[#003366] font-bold text-sm uppercase tracking-wide mb-2"><i data-lucide="cpu" class="w-4 h-4"></i> Hardware & OS</div><p class="text-sm text-gray-600 leading-relaxed text-justify">Verilog (implemented 32-bit OIC), Windows, Linux (Ubuntu) Kernel 2.4.6.</p></div>
+                            <div class="space-y-2"><div class="flex items-center gap-2 text-[#003366] font-bold text-sm uppercase tracking-wide mb-2"><i data-lucide="database" class="w-4 h-4"></i> Databases</div><p class="text-sm text-gray-600 leading-relaxed text-justify">Oracle SQL, PL/SQL, MySQL, Microsoft SQL, Pro *C.</p></div>
+                            <div class="space-y-2"><div class="flex items-center gap-2 text-[#003366] font-bold text-sm uppercase tracking-wide mb-2"><i data-lucide="layers" class="w-4 h-4"></i> Tools & Standards</div><p class="text-sm text-gray-600 leading-relaxed text-justify">Matlab, Maple, LaTeX, Open MP, MPI.</p></div>
+                        </div>
+                    </div>
+                    <div id="sub-teaching" class="sub-tab-content"><div id="teaching-interest-container"></div></div>
+                    <div id="sub-research-interest" class="sub-tab-content"><div id="research-interest-container"></div></div>
+                    <div id="sub-publications-link" class="sub-tab-content"><h3 class="text-2xl font-bold text-[#003366] mb-8 border-b pb-2 font-serif">Research Publications</h3><div id="sub-publications-list" class="space-y-12"></div><div class="scholar-btn-placeholder mt-8"></div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ACADEMIC TAB -->
+        <div id="tab-academic" class="tab-content">
+            <div class="max-w-4xl mx-auto py-8">
+                <h2 class="text-3xl font-bold text-[#003366] border-b-2 border-[#003366] inline-block mb-12 pb-1 font-serif uppercase tracking-wider font-serif">Qualifications</h2>
+                <div class="pl-4 roadmap-line relative" id="academic-roadmap"></div>
+            </div>
+        </div>
+
+        <!-- EXPERIENCE TAB -->
+        <div id="tab-experience" class="tab-content">
+            <div class="max-w-4xl mx-auto py-8">
+                <div class="flex justify-between items-end border-b-2 border-[#003366] mb-12 pb-1">
+                    <h2 class="text-3xl font-bold text-[#003366] font-serif uppercase tracking-wider font-serif">Experience</h2>
+                    <div class="bg-blue-600 text-white px-4 py-1 rounded text-xs font-bold uppercase tracking-widest mb-1">Total: 22+ Years</div>
+                </div>
+                <div class="pl-4 roadmap-line relative" id="experience-roadmap"></div>
+            </div>
+        </div>
+
+        <!-- PUBLICATIONS TAB -->
+        <div id="tab-publications" class="tab-content">
+            <div class="max-w-4xl mx-auto py-8">
+                <h2 class="text-2xl font-bold text-[#003366] border-b-2 border-[#003366] inline-block mb-8 pb-1 font-serif uppercase tracking-wider">Research Publications</h2>
+                <div class="bg-white p-8 lg:p-12 rounded-2xl border border-gray-200 shadow-sm font-sans">
+                    <div id="main-publications-list" class="space-y-12"></div>
+                    <div class="scholar-btn-placeholder mt-8"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AWARDS TAB -->
+        <div id="tab-awards" class="tab-content">
+            <div class="max-w-4xl mx-auto py-8">
+                <h2 class="text-2xl font-bold text-[#003366] border-b-2 border-[#003366] inline-block mb-8 pb-1 font-serif uppercase tracking-wider font-serif">Awards & Fellowships</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="awards-container"></div>
+            </div>
+        </div>
+
+        <!-- CONTACT TAB -->
+        <div id="tab-contact" class="tab-content">
+            <div class="max-w-3xl mx-auto py-8">
+                <h2 class="text-2xl font-bold text-[#003366] border-b-2 border-[#003366] inline-block mb-8 pb-1 font-serif uppercase tracking-wider font-serif">Get In Touch</h2>
+                <div class="bg-white p-10 border border-gray-200 rounded shadow-sm space-y-10 font-serif">
+                    <div class="flex gap-6"><i data-lucide="map-pin" class="text-[#003366] shrink-0 w-7 h-7"></i><div><h4 class="font-bold text-lg mb-2">Office Address</h4><p class="text-gray-600">Department of Computer Science and Engineering,<br>Dayananda Sagar University,<br>Bangalore - 562112, Karnataka, India.</p></div></div>
+                    <div class="flex gap-6"><i data-lucide="mail" class="text-[#003366] shrink-0 w-7 h-7"></i><div><h4 class="font-bold text-lg mb-2 font-serif">Email Address</h4><a href="mailto:shashikiranbangalore@gmail.com" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">shashikiranbangalore@gmail.com</a></div></div>
+                    <div class="flex gap-6"><i data-lucide="phone" class="text-[#003366] shrink-0 w-7 h-7"></i><div><h4 class="font-bold text-lg mb-2 font-serif">Office Phone</h4><p class="text-gray-600">+91 9108618924</p></div></div>
+                    <div class="flex gap-6"><i data-lucide="smartphone" class="text-[#003366] shrink-0 w-7 h-7"></i><div><h4 class="font-bold text-lg mb-2 font-serif">Mobile Number</h4><p class="text-gray-600">+91 8792665530</p></div></div>
+                    <div class="flex gap-6"><i data-lucide="linkedin" class="text-[#003366] shrink-0 w-7 h-7"></i><div><h4 class="font-bold text-lg mb-2 font-serif">LinkedIn</h4><a href="https://www.linkedin.com/in/shashikiran-venkatesha-8744b212a/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">shashikiran-venkatesha</a></div></div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#2b2b2b] text-white py-16 font-sans">
+        <div class="max-w-5xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-x-20 gap-y-12">
+            <div>
+                <h2 class="text-3xl font-light mb-8 opacity-90 border-b border-white/10 pb-2 inline-block font-serif">Contact</h2>
+                <div class="space-y-1.5 font-serif">
+                    <p class="text-xl font-bold tracking-tight mb-2 uppercase">DR. SHASHIKIRAN VENKATESHA</p>
+                    <p class="text-gray-400 text-[15px] italic">Associate Professor</p>
+                    <p class="text-gray-400 text-[15px]">Department of Computer Science and Engineering</p>
+                    <p class="text-gray-400 text-[15px]">Dayananda Sagar University, Bangalore - 562112</p>
+                    <p class="text-gray-400 text-[15px]">Karnataka, INDIA</p>
+                </div>
+            </div>
+            <div>
+                <h2 class="text-3xl font-light mb-8 opacity-90 border-b border-white/10 pb-2 inline-block font-serif">Email & Phone</h2>
+                <div class="space-y-6">
+                    <div class="flex items-center gap-3 group"><span class="text-[#00d4ff] text-lg font-bold">›</span><a href="mailto:shashikiranbangalore@gmail.com" target="_blank" rel="noopener noreferrer" class="text-[#00d4ff] hover:text-white transition-colors break-all">shashikiranbangalore@gmail.com</a></div>
+                    <div class="space-y-4 pt-4 border-t border-white/5">
+                        <div class="flex items-center gap-3 text-gray-300 group">
+                            <i data-lucide="phone" class="opacity-70 group-hover:opacity-100 transition-opacity text-blue-400 w-4.5 h-4.5"></i>
+                            <span class="text-[15px] text-gray-400">Office Phone: <span class="text-white ml-1 font-medium tracking-wide">+91 9108618924</span></span>
+                        </div>
+                        <div class="flex items-center gap-3 text-gray-300 group">
+                            <i data-lucide="smartphone" class="opacity-70 group-hover:opacity-100 transition-opacity text-blue-400 w-4.5 h-4.5"></i>
+                            <span class="text-[15px] text-gray-400">Mobile: <span class="text-white ml-1 font-medium tracking-wide">+91 8792665530</span></span>
+                        </div>
+                        <div class="flex items-center gap-3 text-gray-300 group">
+                            <i data-lucide="linkedin" class="opacity-70 group-hover:opacity-100 transition-opacity text-blue-400 w-4.5 h-4.5"></i>
+                            <span class="text-[15px] text-gray-400">LinkedIn: <a href="https://www.linkedin.com/in/shashikiran-venkatesha-8744b212a/" target="_blank" rel="noopener noreferrer" class="text-white ml-1 font-medium tracking-wide hover:text-blue-400">View Profile</a></span>
+                        </div>
+                    </div>
+                    <div class="pt-6 border-t border-white/5">
+                        <div class="w-24 h-1 bg-[#78b13f] rounded-full mb-4"></div>
+                        <p class="text-gray-500 text-[10px] tracking-[0.2em] uppercase font-sans">
+                            © 2024 DR. SHASHIKIRAN VENKATESHA | ALL RIGHTS RESERVED
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Updated publication list data with simplified venue strings and null links
+        const publicationsData = [
+            { category: "Journals", items: [
+                { title: "Survey on Redundancy based-fault tolerance for Processors and Hardware accelerators Trends in Quantum Computing, Heterogeneous System, and Reliability", venue: "ACM Computing Surveys, 2024", link: null },
+                { title: "32-Bit One Instruction Core: A Low-Cost, Reliable, and Fault-Tolerant Core for Multicore Systems", venue: "Journal of Testing and Evaluation (ASTM), 2019", link: null },
+                { title: "Upper bound tighter Item caps for fast frequent itemsets mining for uncertain data Implemented using splay trees", venue: "International Journal of Pure and Applied Mathematics, 2017", link: null }
+            ]},
+            { category: "Conferences", items: [
+                { title: "One Shot System Based Reliability Modelling and Analysis for Low-Cost Fault-Tolerant Computing System Comprising of One Instruction Cores", venue: "IEEE SMART GENCON, 2022", link: null },
+                { title: "Redundancy Allocation Problem Evaluation Using Interval-Based GA and PSO for Multi-core System Consisting of One Instruction Cores", venue: "Springer Nature Switzerland, ICMDCS, 2022", link: null },
+                { title: "Dynamic road traffic management based on krushkal's algorithm", venue: "IEEE International Conference on Recent Trends in Information Technology (ICRTIT), 2011", link: null },
+                { title: "Reduction in Power and Cache Miss by Using Prefetch techniques and Branch predictors for embedded processors", venue: "National Conference on IT for Industrial Research, 2008", link: null },
+                { title: "A self-testing BIST with reconfigurable flip-flops", venue: "National Conference on Information Technology, 2005", link: null }
+            ]},
+            { category: "Book Chapters", items: [
+                { title: "Introduction to Federated Learning Methods and Classifications", venue: "Handbook on Federated Learning, Taylor and Francis CRC Press, 2024", link: null },
+                { title: "Design of Low-Cost Reliable and Fault-Tolerant 32-Bit One Instruction Core for Multi-Core Systems", venue: "Quality Control An Anthology of Cases, IntechOpen, 2023", link: null }
+            ]},
+            { category: "Preprints & ArXiv", items: [
+                { title: "Enhancement in Reliability for Multi-core system consisting of One Instruction Cores", venue: "arXiv preprint, 2023", link: null },
+                { title: "A Survey of fault models and fault tolerance methods for 2D bus-based multi-core systems and TSV based 3D NOC many-core systems", venue: "arXiv preprint, 2022", link: null },
+                { title: "A Survey of fault mitigation techniques for multi-core architectures", venue: "arXiv preprint, 2021", link: null }
+            ]}
+        ];
+
+        const awardsData = [
+            { title: "Best Teacher Award", org: "SVCE Alumni Association", year: "2007", desc: "Awarded for exceptional teaching and academic contribution." },
+            { title: "TCS Research Fellowship", org: "TATA Consultancy Services", year: "2012", desc: "Highly competitive fellowship awarded during doctoral studies." },
+            { title: "Anna Centenary Fellowship", org: "Anna University", year: "2011", desc: "Awarded for academic excellence and research potential." }
+        ];
+
+        function renderPublications(containerId) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            container.innerHTML = publicationsData.map(section => `
+                <div class="space-y-6">
+                    <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest border-l-4 border-blue-600 pl-4 font-sans">${section.category}</h4>
+                    <div class="space-y-6">
+                        ${section.items.map(pub => `
+                            <div class="group border-b border-gray-50 last:border-0 pb-6">
+                                <span class="text-lg font-bold text-gray-800 block leading-tight mb-2">${pub.title}</span>
+                                <p class="text-sm text-gray-500 italic">${pub.venue}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderRoadmapItem(year, title, subtitle, details, badge, icon) {
+            return `<div class="relative flex gap-8 pb-12"><div class="relative z-10 shrink-0"><div class="w-12 h-12 rounded-full bg-white border-2 border-blue-600 flex items-center justify-center text-blue-600 shadow-sm"><i data-lucide="${icon}" class="w-5 h-5"></i></div></div><div class="flex-1 pt-1"><div class="flex flex-wrap items-center gap-3 mb-2"><span class="text-sm font-bold text-white bg-blue-600 px-3 py-1 rounded-full uppercase tracking-wider font-sans">${year}</span>${badge ? `<span class="text-[10px] font-bold text-blue-600 bg-blue-50 border border-blue-200 px-2 py-0.5 rounded uppercase tracking-widest font-sans">${badge}</span>` : ''}</div><h4 class="text-xl font-bold text-gray-900 leading-tight font-serif">${title}</h4><p class="text-blue-600 font-medium italic mt-0.5">${subtitle}</p><div class="mt-3 text-sm text-gray-600 leading-relaxed bg-white p-4 rounded-xl border border-gray-100 shadow-sm text-justify font-sans">${details}</div></div></div>`;
+        }
+
+        function handleTabChange(id) {
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            const activeNavBtn = document.querySelector(`[data-tab-id="${id}"]`);
+            if (activeNavBtn) activeNavBtn.classList.add('active');
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            const targetTab = document.getElementById(`tab-${id}`);
+            if (targetTab) targetTab.classList.add('active');
+            const contentElement = document.getElementById('main-content');
+            if (id === 'home') {
+                 window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else if (contentElement) {
+                const offset = 80;
+                const elementPosition = contentElement.getBoundingClientRect().top + window.pageYOffset;
+                window.scrollTo({ top: elementPosition - offset, behavior: 'smooth' });
+            }
+        }
+
+        function handleSubTabChange(id) {
+            document.querySelectorAll('.sub-nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+                const icon = btn.querySelector('svg');
+                if (icon) { icon.classList.add('opacity-0'); icon.classList.remove('opacity-100'); }
+            });
+            const activeBtn = document.querySelector(`[data-sub-id="${id}"]`);
+            if (activeBtn) {
+                activeBtn.classList.add('active');
+                const activeIcon = activeBtn.querySelector('svg');
+                if (activeIcon) { activeIcon.classList.remove('opacity-0'); activeIcon.classList.add('opacity-100'); }
+            }
+            document.querySelectorAll('.sub-tab-content').forEach(content => content.classList.remove('active'));
+            const target = document.getElementById(`sub-${id}`);
+            if (target) target.classList.add('active');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            window.addEventListener('scroll', () => {
+                const nav = document.getElementById('sticky-nav');
+                if (window.scrollY > 250) nav.classList.add('is-sticky');
+                else nav.classList.remove('is-sticky');
+            });
+            const scholarBtnHtml = `<div class="flex justify-center"><a href="https://scholar.google.com/citations?user=QCrGcegAAAAJ" target="_blank" rel="noopener noreferrer" class="bg-[#214d72] hover:bg-[#1a3d5a] text-white px-10 py-4 rounded-md text-base font-bold flex items-center gap-3 transition shadow-md hover:shadow-lg tracking-wide uppercase">Google Scholar <i data-lucide="external-link" class="w-5 h-5"></i></a></div>`;
+            document.querySelectorAll('.scholar-btn-placeholder').forEach(div => div.innerHTML = scholarBtnHtml);
+            renderPublications('main-publications-list');
+            renderPublications('sub-publications-list');
+            document.getElementById('teaching-interest-container').innerHTML = `<div class="space-y-8"><h3 class="text-3xl font-bold text-[#003366] border-b border-gray-100 pb-4 font-serif">Teaching Interest</h3><div class="space-y-10 text-gray-700 text-[15px] leading-relaxed"><div><h4 class="font-bold text-[#003366] mb-5 flex items-center gap-3 text-lg"><i data-lucide="book-open" class="w-5 h-5"></i> Core Focus Areas</h4><div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-3 pl-2"><div class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-[#003366] rounded-full"></span><span>Digital logic & System design</span></div><div class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-[#003366] rounded-full"></span><span>System testing & Testable designs</span></div><div class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-[#003366] rounded-full"></span><span>Microprocessor & Microcontrollers</span></div><div class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-[#003366] rounded-full"></span><span>Computer Organization & Architecture</span></div></div></div><div><h4 class="font-bold text-[#003366] mb-5 flex items-center gap-3 text-lg"><i data-lucide="zap" class="w-5 h-5"></i> Methodology Highlights</h4><ul class="space-y-4 pl-2"><li class="flex items-start gap-3"><span class="w-1.5 h-1.5 bg-[#003366] rounded-full mt-2 shrink-0"></span><span>Simulation-based evaluation of power, area, and critical path parameters.</span></li><li class="flex items-start gap-3"><span class="w-1.5 h-1.5 bg-[#003366] rounded-full mt-2 shrink-0"></span><span>Implementing fault models for permanent/transient faults as a primary design step.</span></li><li class="flex items-start gap-3"><span class="w-1.5 h-1.5 bg-[#003366] rounded-full mt-2 shrink-0"></span><span>Path-sensitization and test generation algorithms for stuck-at faults.</span></li><li class="flex items-start gap-3"><span class="w-1.5 h-1.5 bg-[#003366] rounded-full mt-2 shrink-0"></span><span>Bridging hardware-software co-design via instruction set and channel protocol optimization.</span></li></ul></div><div><h4 class="font-bold text-[#003366] mb-4 text-lg font-serif">Courses Handled (PG/UG)</h4><div class="bg-blue-50/50 p-8 rounded-2xl border-l-4 border-[#003366] italic text-gray-600 leading-relaxed text-lg shadow-sm text-justify font-serif">Advanced Compiler Design, Parallel Architectures, Operating Systems, Data Science, Machine Learning, Optimization Techniques, Discrete Math, and Graph Theory.</div></div></div></div>`;
+            document.getElementById('research-interest-container').innerHTML = `<div class="space-y-8"><h3 class="text-3xl font-bold text-[#003366] border-b border-gray-100 pb-4 font-serif">Research Interest</h3><div class="space-y-8 text-gray-700 text-[15px] leading-relaxed"><div><h4 class="font-bold text-[#003366] mb-4 text-lg">Reliability of Multi-core Architectures</h4><ul class="space-y-3 pl-2"><li class="flex items-start gap-3"><span class="text-[#003366] mt-1 shrink-0">•</span><span>Developing innovative solutions for permanent and transient faults (soft errors) in sub-16nm process nodes.</span></li><li class="flex items-start gap-3"><span class="text-[#003366] mt-1 shrink-0">•</span><span>Improving multicore reliability via low-cost redundancy solutions in the Backend ALU.</span></li><li class="flex items-start gap-3"><span class="text-[#003366] mt-1 shrink-0">•</span><span>Extending <strong>One Instruction Core (OIC)</strong> architectures for use in SRAM and DRAM memory systems.</span></li></ul></div><div><h4 class="font-bold text-[#003366] mb-4 text-lg">Optimization & Bio-inspired Algorithms</h4><ul class="space-y-3 pl-2"><li class="flex items-start gap-3"><span class="text-[#003366] mt-1 shrink-0">•</span><span>Solving Redundancy Allocation Problems (RAP) using <strong>GA, ACO, and PSO</strong>.</span></li><li class="flex items-start gap-3"><span class="text-[#003366] mt-1 shrink-0">•</span><span>Addressing non-linear multi-objective optimization for heterogeneous multi-core architectures.</span></li><li class="flex items-start gap-3"><span class="text-[#003366] mt-1 shrink-0">•</span><span>Exploring <strong>Linear, Quadratic, and Geometric Programming</strong> to optimize power, area, and performance.</span></li></ul></div><div class="bg-blue-50/50 p-8 rounded-2xl border-l-4 border-[#003366] shadow-sm"><p class="font-medium italic text-gray-600 text-lg leading-relaxed text-justify font-serif">"My focus is on low-cost redundancy-based approaches to provide fault tolerance for computations in modern processor architectures."</p></div></div></div>`;
+            document.getElementById('academic-roadmap').innerHTML = renderRoadmapItem('2019', 'Doctor of Philosophy (PhD)', 'College of Engineering Guindy, Anna University, Chennai', 'Specialization in <strong>Fault Tolerant Computer Architecture</strong>. Maintained an academic consistency with a <strong>CGPA of 9.05</strong>. Coursework included Fault Tolerant Systems, Compiler Optimization, and Operation Research.', 'Doctorate', 'microscope') + renderRoadmapItem('2005', 'Master of Engineering (M.E.)', 'Anna University, Chennai', 'Specialized in <strong>Computer Science and Engineering</strong>. Graduated with <strong>First Class with Distinction (75%)</strong>. Gained a solid foundation in Logic, Probability, and Research Methodologies.', 'Post-Graduate', 'graduation-cap') + renderRoadmapItem('1999', 'Bachelor of Engineering (B.E.)', 'University of Madras', 'Specialized in <strong>Computer Science and Engineering</strong>. Graduated with <strong>First Class with Distinction (79%)</strong>. Developed profound interests in Electric Circuit Theory and Signal Processing.', 'Under-Graduate', 'book') + renderRoadmapItem('1995', 'Higher Secondary (12th)', 'Board of Examination', 'Subjects: Physics, Mathematics, Chemistry & Biology. Secured <strong>85.25%</strong>.', '', 'layers');
+            document.getElementById('experience-roadmap').innerHTML = renderRoadmapItem('Dec 2023 - Present', 'Associate Professor', 'Dayananda Sagar University', 'Currently serving as Associate Professor in the Department of Computer Science and Engineering.', 'Current Role', 'briefcase') + renderRoadmapItem('June 2022 - Dec 2023', 'Assistant Professor (Sr. Grade - 1)', 'VIT University', 'Duration: 1 Year 6 Months. Advanced pedagogy and curriculum development.', '', 'user') + renderRoadmapItem('July 2013 - May 2022', 'Assistant Professor (Senior)', 'VIT University', 'Duration: 8 Years 10 Months. Research coordination and lab leadership.', '', 'briefcase') + renderRoadmapItem('June 2011 - June 2013', 'Research Assistant / Teaching Assistant', 'College of Engineering Guindy, Anna University', 'Duration: 2 Years. Pursued doctoral research alongside teaching.', '', 'microscope') + renderRoadmapItem('June 2008 - April 2011', 'Assistant Professor', 'Sri Venkateswara College of Engineering', 'Duration: 3 Years. Promoted from Senior Lecturer.', '', 'building-2') + renderRoadmapItem('June 2005 - May 2008', 'Senior Lecturer', 'Sri Venkateswara College of Engineering', 'Duration: 3 Years.', '', 'building-2') + renderRoadmapItem('Sept 2000 - May 2003', 'Lecturer', 'Sri Venkateswara College of Engineering', 'Duration: 2 Years 8 Months.', '', 'building-2') + renderRoadmapItem('Aug 1999 - Aug 2000', 'Software Engineer', 'Elorasoft India Pvt Ltd', 'Duration: 1 Year. Java development and system engineering.', 'Industry', 'code');
+            document.getElementById('awards-container').innerHTML = awardsData.map(award => `<div class="flex gap-4 p-6 bg-white border border-gray-200 rounded shadow-sm hover:shadow-md transition"><i data-lucide="award" class="text-[#78b13f] shrink-0 w-8 h-8"></i><div><h3 class="font-bold text-gray-900 font-serif">${award.title}</h3><p class="text-xs text-[#003366] font-bold uppercase mb-2">${award.year} • ${award.org}</p><p class="text-sm text-gray-600 font-serif leading-snug">${award.desc}</p></div></div>`).join('');
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>
